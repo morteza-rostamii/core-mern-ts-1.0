@@ -1,11 +1,15 @@
 import { NextFunction, Request, Response } from "express"
+import userModel from "./user.model.js";
 
 const userService = {
 
   // Get: /users (get all)
-  gets: (req: Request, res: Response, next: NextFunction) => {
+  gets: async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.hostname);
+    const users = await userModel.getUsers();
+
     return res.status(200).json({
+      users: users,
       msg: req.hostname,
     })
   },
